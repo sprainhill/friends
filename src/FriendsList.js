@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
 import axios from "axios";
-import "./App.css";
 
-import FriendsList from "./FriendsList";
-import FriendForm from "./FriendForm";
+import FriendCard from "./FriendCard";
 
-class App extends Component {
+export default class FriendsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,16 +21,9 @@ class App extends Component {
         console.log("FriendsList response.data", response.data);
       })
       .catch(error => {
-        console.log("Error", error);
+        console.log("Not Enough Michael Scott", error);
       });
   }
-
-  handleChanges = event => {
-    console.log("handleChanges event.target.name", event.target.name);
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
 
   addFriend = event => {
     event.preventDefault();
@@ -59,14 +49,13 @@ class App extends Component {
   };
 
   render() {
+    console.log("FriendsList render this.state", this.state);
     return (
-      <div className="App">
-        <h1>Michael Scott Best Friends Day</h1>
-        <Route exact path="/" component={FriendsList} />
-        <FriendForm addFriend={this.addFriend} />
+      <div className="friends-list">
+        {this.state.friends.map(friend => (
+          <FriendCard key={friend.id} friend={friend} />
+        ))}
       </div>
     );
   }
 }
-
-export default App;

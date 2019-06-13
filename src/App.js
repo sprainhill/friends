@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("phasers locked");
+    console.log("CDM: phasers locked");
     axios
       .get("http://localhost:5000/friends")
       .then(response => {
@@ -107,14 +107,24 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Michael Scott Best Friends Day</h1>
-        <Route exact path="/" component={FriendsList} />
-        <FriendForm
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <FriendsList
+              {...props}
+              friends={this.state.friends}
+              deleteFriend={this.deleteFriend}
+            />
+          )}
+        />
+        {/* <FriendForm
           addFriend={this.addFriend}
           // handleChanges={handleChanges}
           name={this.state.name}
           age={this.state.age}
           email={this.state.email}
-        />
+        /> */}
       </div>
     );
   }

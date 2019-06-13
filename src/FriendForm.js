@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class FriendForm extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     friends: [],
-  //     name: "",
-  //     age: "",
-  //     email: ""
-  //   };
-  // }
+    this.state = {
+      newFriend: {
+        name: '',
+        age: '',
+        email: ''
+
+      }
+    };
+  }
 
   // componentDidMount() {
   //   axios

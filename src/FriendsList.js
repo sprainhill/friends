@@ -1,38 +1,40 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import FriendCard from "./FriendCard";
 
-export default class FriendsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      friends: []
-    };
-  }
+const FriendsList = props => {
+  return (
+    <div className="friends-list">
+      {props.friends.map(friend => (
+        <div className="friend-card">
+          <Link to={`/${friend.id}`}>
+            <h3>Name: {friend.name}</h3>
+            <div>Age: {friend.age}</div>
+            <div>Email: {friend.email}</div>
+          </Link>
+          <button
+            onClick={event => {
+              console.log("Press delete button");
+              // deleteFriend(friend.id);
+            }}
+            className="delete-button"
+          >
+            Delete Friend
+          </button>
+          <button
+            onClick={event => {
+              console.log("Press delete button");
+              // setUpdateFriend(event, friend)
+            }}
+            className="update-button"
+          >
+            Update Friend
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  componentDidMount() {
-    axios
-      .get("http://localhost:5000/friends")
-      .then(response => {
-        this.setState(() => ({
-          friends: response.data
-        }));
-        console.log("FriendsList response.data", response.data);
-      })
-      .catch(error => {
-        console.log("Not Enough Michael Scott", error);
-      });
-  }
-
-  render() {
-    console.log("FriendsList render this.state", this.state);
-    return (
-      <div className="friends-list">
-        {this.state.friends.map(friend => (
-          <FriendCard key={friend.id} friend={friend} />
-        ))}
-      </div>
-    );
-  }
-}
+export default FriendsList;

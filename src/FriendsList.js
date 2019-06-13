@@ -25,29 +25,6 @@ export default class FriendsList extends Component {
       });
   }
 
-  addFriend = event => {
-    event.preventDefault();
-    console.log("addFriend event", event);
-
-    const newFriend = {
-      name: this.state.name,
-      age: this.state.age,
-      email: this.state.email
-    };
-
-    axios
-      .post("http://localhost5000/friends", newFriend)
-      .then(response => {
-        console.log("FriendForm addFriend response", response);
-        // this.setState({
-        //   friends: response.data
-        // });
-      })
-      .catch(error => {
-        console.log("Moar Power");
-      });
-  };
-
   render() {
     console.log("FriendsList render this.state", this.state);
     return (

@@ -2,29 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class FriendForm extends Component {
-    this.state = {
-      newFriend: {
-        name: '',
-        age: '',
-        email: ''
-
-      }
-    };
-  }
-
-  // componentDidMount() {
-  //   axios
-  //     .get("http://localhost:5000/friends")
-  //     .then(response => {
-  //       this.setState(() => ({
-  //         friends: response.data
-  //       }));
-  //       console.log("FriendsForm response.data", response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("Not Enough Michael Scott", error);
-  //     });
-  // }
+  state = {
+    newFriend: {
+      name: "",
+      age: "",
+      email: ""
+    }
+  };
 
   handleChanges = event => {
     console.log(
@@ -32,37 +16,28 @@ class FriendForm extends Component {
       event.target.name
     );
     this.setState({
-      [event.target.name]: event.target.value
+      newFriend: {
+        ...this.state.newFriend,
+        [event.target.name]: event.target.value
+      }
     });
   };
 
-  // addFriend = event => {
+  addFriend = event => {
+    event.preventDefault();
+    console.log("addFriend event", event);
+    this.props.addFriend(this.state.newFriend);
+  };
+
+  // deleteFriend = event => {
   //   event.preventDefault();
-  //   console.log("addFriend event", event);
-
-  //   const newFriend = {
-  //     name: this.state.name,
-  //     age: this.state.age,
-  //     email: this.state.email
-  //   };
-
-  //   axios
-  //     .post("http://localhost5000/friends", newFriend)
-  //     .then(response => {
-  //       console.log("FriendForm addFriend response", response);
-  //       // this.setState({
-  //       //   friends: response.data
-  //       // });
-  //     })
-  //     .catch(error => {
-  //       console.log("Moar Power");
-  //     });
+  //   this.props.deleteFriend();
   // };
 
   render() {
     return (
       <div className="friend-form-div">
-        <form onSubmit={this.addComment} className="friend-form">
+        <form onSubmit={this.addFriend} className="friend-form">
           <input
             className="friend-form-name-input"
             placeholder="name"
@@ -84,7 +59,24 @@ class FriendForm extends Component {
             name="email"
             onChange={this.handleChanges}
           />
-          <button className="btn">Add Friend</button>
+          {/* <button
+            onClick={event => {
+              console.log("Press delete button");
+              // deleteFriend(friend.id);
+            }}
+            className="delete-button"
+          >
+            Delete Friend
+          </button> */}
+          <button
+            // onClick={event => {
+            //   console.log("Press update button");
+            //   props.setUpdateFriend(event, newFriend);
+            // }}
+            className="update-button"
+          >
+            Add Friend
+          </button>
         </form>
       </div>
     );
